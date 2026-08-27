@@ -858,7 +858,7 @@ function showAboutDialog() {
         <p style="margin-top:0.4rem;font-size:0.7rem;opacity:0.6"><a href="https://github.com/khawkins98/PDF-A-go-slim/blob/main/CHANGELOG.md" target="_blank" rel="noopener" style="color:inherit">v${__APP_VERSION__}</a> &middot; ${__BUILD_DATE__}</p>
       </div>
       <div class="about-dialog__footer">
-        <button class="btn btn--default" data-action="close">OK</button>
+        <button class="btn btn--default" data-action="close">موافق</button>
       </div>
     </div>`;
 
@@ -899,24 +899,24 @@ function showWarningDialog() {
     <div class="warning-dialog">
       <div class="about-dialog__title-bar">
         <div class="about-dialog__stripes"></div>
-        <span class="about-dialog__title">Warning</span>
+        <span class="about-dialog__title">تنبيه مهم</span>
         <div class="about-dialog__stripes"></div>
       </div>
       <div class="warning-dialog__content">
         <div class="warning-dialog__icon">\u26A0\uFE0F</div>
         <div class="warning-dialog__text">
-          <p>This tool is experimental</p>
-          <p>PDF-A-go-slim creates a new, optimized copy of your PDF. Your original file is never modified.</p>
-          <p>However, the optimized copy may have rendering differences or missing content. If you overwrite your original with the optimized version, that data may be unrecoverable.</p>
-          <p><strong>Font subsetting</strong> is off by default. A rendering issue with certain fonts has been fixed, but we continue to monitor for edge cases. You can enable it in Advanced Settings.</p>
-          <p>This tool is provided "as is", without warranty of any kind.</p>
+          <p><strong>هذه الأداة ما زالت تجريبية</strong></p>
+          <p>تنشئ أداة تقليص PDF نسخة جديدة ومحسّنة من ملفك، ولا تعدّل الملف الأصلي.</p>
+          <p>قد تظهر في النسخة المحسّنة اختلافات في العرض أو محتويات مفقودة. لذلك راجع الملف الناتج قبل حذف النسخة الأصلية.</p>
+          <p>تقليص الخطوط المضمّنة متوقف افتراضيًا للحفاظ على أعلى قدر من التوافق، ويمكن تفعيله من الإعدادات المتقدمة.</p>
+          <p>تُقدَّم الأداة كما هي دون ضمان، ويُنصح دائمًا بالاحتفاظ بالملف الأصلي.</p>
           <p style="margin-top:0.6rem;font-size:0.7rem;opacity:0.6"><a href="https://github.com/khawkins98/PDF-A-go-slim/blob/main/CHANGELOG.md" target="_blank" rel="noopener" style="color:inherit">v${__APP_VERSION__}</a> &middot; ${__BUILD_DATE__}</p>
         </div>
       </div>
       <div class="warning-dialog__footer">
         <label class="warning-dialog__dismiss">
           <input type="checkbox" id="warning-dismiss-check" />
-          Don\u2019t show this again
+          لا تعرض هذا التنبيه مرة أخرى
         </label>
         <button class="btn btn--default" data-action="close">OK</button>
       </div>
