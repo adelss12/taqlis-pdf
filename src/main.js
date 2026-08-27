@@ -37,24 +37,24 @@ window.addEventListener('error', (e) => {
 
 // --- Friendly pass name labels (pipeline names stay unchanged for test compat) ---
 const PASS_LABELS = {
-  'Recompressing streams': 'Compressing data\u2026',
-  'Recompressing images': 'Optimizing images\u2026',
-  'Unembedding standard fonts': 'Cleaning up fonts\u2026',
-  'Subsetting fonts': 'Optimizing fonts\u2026',
-  'Deduplicating objects': 'Removing duplicates\u2026',
-  'Deduplicating fonts': 'Consolidating fonts\u2026',
-  'Stripping metadata': 'Cleaning metadata\u2026',
-  'Removing unreferenced objects': 'Final cleanup\u2026',
+  'Recompressing streams': 'جارٍ ضغط البيانات…',
+  'Recompressing images': 'جارٍ تحسين الصور…',
+  'Unembedding standard fonts': 'جارٍ تنظيف الخطوط…',
+  'Subsetting fonts': 'جارٍ تحسين الخطوط…',
+  'Deduplicating objects': 'جارٍ إزالة التكرار…',
+  'Deduplicating fonts': 'جارٍ دمج الخطوط…',
+  'Stripping metadata': 'جارٍ تنظيف البيانات الوصفية…',
+  'Removing unreferenced objects': 'جارٍ الإنهاء…',
 };
 
 // --- Friendly error messages ---
 function friendlyError(msg) {
   const lower = (msg || '').toLowerCase();
   if (lower.includes('encrypt') || lower.includes('password'))
-    return 'This PDF is password-protected';
+    return 'ملف PDF محمي بكلمة مرور';
   if (lower.includes('invalid pdf') || lower.includes('not a valid'))
-    return "This file doesn't appear to be a valid PDF";
-  return 'Something went wrong processing this file';
+    return 'هذا الملف لا يبدو ملف PDF صالحًا';
+  return 'حدث خطأ أثناء معالجة الملف';
 }
 
 // --- Toast notification ---
@@ -206,7 +206,7 @@ if (mainZoomBox) {
 initDrag(mainWindow, mainTitleBar, { onDragMove: clearMainZoomState });
 
 // Register main window in the window registry
-registerWindow('main', 'PDF-A-go-slim', mainWindow, 'main');
+registerWindow('main', 'تقليص PDF', mainWindow, 'main');
 
 // Create menu bar
 const menuBar = createMenuBar({
@@ -221,14 +221,14 @@ const menuBar = createMenuBar({
 // --- Create palettes ---
 const settingsPalette = createPalette({
   id: 'settings',
-  title: 'Settings',
+  title: 'مستوى التقليص',
   defaultPosition: { top: 41, right: 20 },
   width: 260,
 });
 
 const resultsPalette = createPalette({
   id: 'results',
-  title: 'Results',
+  title: 'النتيجة',
   defaultPosition: { top: 41, left: 520 },
   width: 420,
 });
@@ -257,6 +257,7 @@ const accessibilityPalette = createPalette({
   width: 300,
 });
 accessibilityPalette.setContent(buildAccessibilityEmptyContent());
+inspectorPalette?.hide?.();
 
 // Move #options-panel into Settings palette
 const optionsPanel = document.getElementById('options-panel');
@@ -264,7 +265,7 @@ optionsPanel.hidden = false;
 settingsPalette.setContent(optionsPanel);
 
 // Set empty states for result palettes
-resultsPalette.showEmpty('Nothing to report yet');
+resultsPalette.showEmpty('اختر ملفًا لعرض النتيجة');
 inspectorPalette.showEmpty('Waiting for a PDF to dissect');
 previewPalette.showEmpty('No document loaded');
 
@@ -312,6 +313,13 @@ const debugPalette = createPalette({
 });
 debugPalette.showEmpty('Run optimization to see diagnostics');
 if (!isDebug) debugPalette.hide();
+
+inspectorPalette.hide();
+previewPalette.hide();
+accessibilityPalette.hide();
+readmePalette.hide();
+appearancePalette.hide();
+debugPalette.hide();
 
 // Establish initial z-order: Read Me behind work palettes
 bringToFront(readmePalette.element);
@@ -454,8 +462,8 @@ function setProcessing(active) {
   processingSection.hidden = !active;
   dropZone.classList.toggle('state--dimmed', active);
   statusLeft.textContent = active
-    ? 'Optimizing\u2026'
-    : 'Ready \u2014 files never leave your device';
+    ? 'جارٍ التقليص…'
+    : 'جاهز — ملفاتك لا تغادر جهازك';
 }
 
 function revokeBlobUrls() {
@@ -508,9 +516,9 @@ function renderResults(results, options) {
   const totalSaved = totalOriginal - totalOptimized;
   const totalPct = totalOriginal > 0 ? ((totalSaved / totalOriginal) * 100).toFixed(1) : '0.0';
   if (totalSaved > 0) {
-    statusLeft.textContent = `Saved ${totalPct}% \u2014 ${formatSize(totalOriginal)} \u2192 ${formatSize(totalOptimized)}`;
+    statusLeft.textContent = `تم تقليل الحجم بنسبة ${totalPct}% — ${formatSize(totalOriginal)} → ${formatSize(totalOptimized)}`;
   } else {
-    statusLeft.textContent = 'Done \u2014 already well-optimized';
+    statusLeft.textContent = 'اكتملت المعالجة — الملف محسّن مسبقًا';
   }
 
   // Results palette
@@ -579,7 +587,7 @@ function startOver() {
   mainActions.hidden = true;
   settingsActions.hidden = true;
   btnReoptimize.classList.remove('btn--stale');
-  statusLeft.textContent = 'Ready \u2014 files never leave your device';
+  statusLeft.textContent = 'جاهز — ملفاتك لا تغادر جهازك';
 }
 
 btnStartOver.addEventListener('click', startOver);
@@ -934,7 +942,7 @@ function showWarningDialog() {
 document.getElementById('subset-fonts-learn-more')?.addEventListener('click', (e) => {
   e.preventDefault();
   localStorage.removeItem(WARNING_DISMISSED_KEY);
-  showWarningDialog();
+  // تم إخفاء التنبيه الافتتاحي في الواجهة العربية
 });
 
 showWarningDialog();
