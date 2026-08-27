@@ -719,6 +719,7 @@ async function handleFiles(files) {
 // --- Example PDF (inline "try an example" button) ---
 const btnTryExample = document.getElementById('btn-try-example');
 
+if (btnTryExample) {
 btnTryExample.addEventListener('click', async (e) => {
   e.stopPropagation(); // Don't trigger the file picker
   btnTryExample.disabled = true;
@@ -733,6 +734,7 @@ btnTryExample.addEventListener('click', async (e) => {
     btnTryExample.textContent = 'try an example PDF';
   }
 });
+}
 
 // --- Event listeners ---
 dropArea.addEventListener('click', (e) => {
