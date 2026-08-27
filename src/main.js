@@ -950,5 +950,5 @@ document.getElementById('subset-fonts-learn-more')?.addEventListener('click', (e
 showWarningDialog();
 
 // --- Initial state ---
-statusLeft.textContent = 'Ready \u2014 files never leave your device';
+statusLeft.textContent = 'جاهز — ملفاتك لا تغادر جهازك';
 
