@@ -11,7 +11,7 @@ export default defineConfig({
     __BUILD_DATE__: JSON.stringify(buildDate),
     __APP_VERSION__: JSON.stringify(pkg.version),
   },
-  base: process.env.GITHUB_ACTIONS ? '/PDF-A-go-slim/' : '/',
+  base: process.env.GITHUB_ACTIONS ? '/taqlis-pdf-engine/' : '/',
   server: {
     open: true,
   },
@@ -29,9 +29,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'PDF-A-go-slim',
-        short_name: 'PDF-A-go-slim',
-        description: 'Optimize PDFs entirely in your browser — no uploads, no accounts.',
+        name: 'تقليص PDF',
+        short_name: 'تقليص PDF',
+        description: 'تقليص ملفات PDF داخل المتصفح دون رفع الملفات.',
         theme_color: '#c0c0c8',
         background_color: '#c0c0c8',
         display: 'standalone',
