@@ -67,7 +67,7 @@ function buildHintBanner(result, saved, options, onStaleCheck) {
 
   const banner = document.createElement('div');
   banner.className = 'hint-banner';
-  banner.innerHTML = `Images make up ${Math.round(imagesPct)}% of this file. Try the <button class="hint-banner__link" data-action="apply-web">Web preset</button> for better compression.`;
+  banner.innerHTML = `تشكل الصور ${Math.round(imagesPct)}% من الملف. جرّب وضع <button class="hint-banner__link" data-action="apply-web">الشاشة</button> لتقليص أكبر.`;
 
   banner.querySelector('[data-action="apply-web"]').addEventListener('click', () => {
     applyPreset('web');
@@ -115,7 +115,7 @@ export function buildSingleFileCard(result, blob, blobUrl, options, animateCount
   downloadLink.href = blobUrl;
   downloadLink.download = buildDownloadName(result.name, options);
   downloadLink.className = 'btn btn--primary btn--default result-card__download';
-  downloadLink.textContent = 'Download';
+  downloadLink.textContent = 'تنزيل';
   heroEl.appendChild(downloadLink);
 
   card.appendChild(heroEl);
@@ -148,14 +148,14 @@ export function buildSummaryCard(results, animateCountUp, options) {
 
   // Add "across N files" to the sizes line
   const sizesEl = heroEl.querySelector('.results-hero__sizes');
-  sizesEl.textContent += ` across ${results.length} files`;
+  sizesEl.textContent += ` عبر ${results.length} ملفات`;
 
   card.appendChild(heroEl);
 
   // Download All button
   const downloadAllBtn = document.createElement('button');
   downloadAllBtn.className = 'btn btn--primary btn--default result-card__download';
-  downloadAllBtn.textContent = 'Download All';
+  downloadAllBtn.textContent = 'تنزيل الكل';
   downloadAllBtn.addEventListener('click', () => {
     for (const r of results) {
       const blob = new Blob([r.result], { type: 'application/pdf' });
@@ -183,10 +183,10 @@ export function buildFileTableHeader() {
   const header = document.createElement('div');
   header.className = 'result-table__header';
   header.innerHTML = `
-    <span class="result-table__col-label">Filename</span>
-    <span class="result-table__col-label result-table__col-label--num">Original</span>
-    <span class="result-table__col-label result-table__col-label--num">Optimized</span>
-    <span class="result-table__col-label result-table__col-label--num">Saved</span>
+    <span class="result-table__col-label">اسم الملف</span>
+    <span class="result-table__col-label result-table__col-label--num">الأصلي</span>
+    <span class="result-table__col-label result-table__col-label--num">بعد التقليص</span>
+    <span class="result-table__col-label result-table__col-label--num">التوفير</span>
     <span class="result-table__col-label"></span>`;
   return header;
 }
@@ -337,7 +337,7 @@ export function buildInspectorPaletteContent(result, options) {
     toolbar.className = 'inspector-toolbar';
     const reportBtn = document.createElement('button');
     reportBtn.className = 'btn btn--small inspector-toolbar__report';
-    reportBtn.textContent = 'Download Report';
+    reportBtn.textContent = 'تنزيل التقرير';
     reportBtn.addEventListener('click', () => {
       const blob = new Blob([reportHtml], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
