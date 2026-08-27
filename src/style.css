@@ -3469,3 +3469,18 @@ body.crt-overlay::after {
     width: 380px;
   }
 }
+
+
+/* واجهة تقليص PDF العربية المبسطة */
+body{direction:rtl;font-family:Tahoma,Arial,sans-serif;background:#f7f8fb}
+.menu-bar,.control-strip,.desktop-icons,#palette-inspector,#palette-preview,#palette-accessibility,#palette-readme,#palette-appearance,#palette-debug{display:none!important}
+.desktop{position:relative!important;min-height:100vh;display:grid!important;grid-template-columns:minmax(320px,560px) minmax(280px,420px);grid-template-areas:"main settings" "results results";gap:18px;align-content:start;justify-content:center;padding:36px 18px!important}
+#main-window{grid-area:main;position:relative!important;inset:auto!important;width:100%!important;height:auto!important}
+#palette-settings{grid-area:settings;position:relative!important;inset:auto!important;width:100%!important}
+#palette-results{grid-area:results;position:relative!important;inset:auto!important;width:100%!important;min-height:120px}
+.title-bar,.palette__title-bar{cursor:default!important}
+.status-bar__right{display:none}
+.drop-area__text-group{text-align:right}
+.result-card__hero{direction:rtl}
+.results-hero__sizes,.result-card__filename{direction:ltr;text-align:right}
+@media(max-width:800px){.desktop{grid-template-columns:1fr;grid-template-areas:"main" "settings" "results";padding:16px 10px!important}}
