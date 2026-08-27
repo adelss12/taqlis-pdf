@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PDF-A-go-slim — Optimize PDFs in your browser</title>
+  <title>تقليص PDF — ضغط متقدم وآمن</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/favicon.svg" />
   <meta name="theme-color" content="#c0c0c8" />
@@ -19,7 +19,7 @@
         <line x1="12" y1="18" x2="12" y2="12"/>
         <polyline points="9 15 12 12 15 15"/>
       </svg>
-      <p class="drop-overlay__text">Drop to optimize</p>
+      <p class="drop-overlay__text">أفلت الملف لبدء التقليص</p>
     </div>
   </div>
 
@@ -27,7 +27,7 @@
     <div class="app-window" id="main-window">
       <div class="title-bar">
         <div class="title-bar__ridges" aria-hidden="true"></div>
-        <span class="title-bar__title">PDF-A-go-slim</span>
+        <span class="title-bar__title">تقليص PDF</span>
         <div class="title-bar__ridges" aria-hidden="true"></div>
         <div class="title-bar__widgets" aria-hidden="true">
           <div class="title-bar__zoom-box"></div>
@@ -38,7 +38,7 @@
       <main id="app">
         <!-- Drop zone (always visible) -->
         <section id="drop-zone">
-          <div class="drop-area" tabindex="0" role="button" aria-label="Drop PDFs here or click to select files">
+          <div class="drop-area" tabindex="0" role="button" aria-label="اسحب ملفات PDF هنا أو اضغط للاختيار">
             <div class="drop-area__content">
               <svg class="drop-area__icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -47,8 +47,8 @@
                 <polyline points="9 15 12 12 15 15"/>
               </svg>
               <div class="drop-area__text-group">
-                <p class="drop-area__text">Drop 1 or more PDFs here</p>
-                <p class="drop-area__subtext">or click to select files · or <button type="button" id="btn-try-example" class="try-example-link">try an example PDF</button></p>
+                <p class="drop-area__text">اسحب ملف PDF أو أكثر إلى هنا</p>
+                <p class="drop-area__subtext">أو اضغط لاختيار الملفات</p>
               </div>
             </div>
             <input type="file" id="file-input" accept=".pdf,application/pdf" multiple hidden />
@@ -57,27 +57,27 @@
 
         <!-- Processing state (shown below drop zone during optimization) -->
         <section id="processing" class="state state--processing" hidden>
-          <h2>Optimizing&hellip;</h2>
+          <h2>جارٍ تقليص الملفات&hellip;</h2>
           <ul id="file-list" class="file-list"></ul>
           <div class="processing-actions">
-            <button id="btn-cancel" class="btn-cancel">Cancel</button>
+            <button id="btn-cancel" class="btn-cancel">إلغاء</button>
           </div>
         </section>
 
         <!-- Start over (shown after optimization completes) -->
         <div id="main-actions" class="main-actions" hidden>
-          <button id="btn-start-over" class="btn btn--secondary">Start Over</button>
+          <button id="btn-start-over" class="btn btn--secondary">البدء من جديد</button>
         </div>
       </main>
 
       <div class="status-bar">
-        <span class="status-bar__field status-bar__left" id="status-left">Ready</span>
+        <span class="status-bar__field status-bar__left" id="status-left">جاهز</span>
         <span class="status-bar__field status-bar__right" id="status-right">
           <a href="https://github.com/khawkins98/PDF-A-go-slim" target="_blank" rel="noopener">GitHub</a>
           &middot;
-          <button type="button" class="about-link" id="btn-about">About</button>
+          <button type="button" class="about-link" id="btn-about">حول</button>
           &middot;
-          <button type="button" class="debug-link" id="btn-debug">Debug</button>
+          <button type="button" class="debug-link" id="btn-debug">التفاصيل</button>
         </span>
       </div>
     </div>
@@ -92,7 +92,7 @@
           <line x1="8" y1="17" x2="13" y2="17"/>
           <line x1="8" y1="9" x2="11" y2="9"/>
         </svg>
-        <span class="desktop-icon__label">Read Me</span>
+        <span class="desktop-icon__label">تعليمات</span>
       </button>
       <a class="desktop-icon" id="icon-github"
          href="https://github.com/khawkins98/PDF-A-go-slim"
@@ -109,33 +109,33 @@
           <circle cx="12" cy="12" r="3"/>
           <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
         </svg>
-        <span class="desktop-icon__label">Appearance</span>
+        <span class="desktop-icon__label">المظهر</span>
       </button>
     </div>
 
     <!-- Options panel (kept in HTML so options.js module-level querySelectorAll finds elements on import) -->
     <div id="options-panel" class="options-panel" hidden>
       <div class="tab-control" role="tablist">
-        <button class="tab-control__tab tab-control__tab--active" data-preset="lossless" role="tab" aria-selected="true" title="No quality loss — recompress, deduplicate, clean up">Lossless</button>
-        <button class="tab-control__tab" data-preset="web" role="tab" aria-selected="false" title="Lossy JPEG at 75% quality, 150 DPI cap — best for screens">Web</button>
-        <button class="tab-control__tab" data-preset="print" role="tab" aria-selected="false" title="Lossy JPEG at 92% quality, 300 DPI cap — best for print">Print</button>
-        <button class="tab-control__tab" data-preset="supercompress" role="tab" aria-selected="false" title="Maximum compression — 50% quality, 72 DPI — smallest file size">Max</button>
+        <button class="tab-control__tab tab-control__tab--active" data-preset="lossless" role="tab" aria-selected="true" title="دون فقدان الجودة — ضغط وتنظيف وإزالة التكرار">بدون فقد</button>
+        <button class="tab-control__tab" data-preset="web" role="tab" aria-selected="false" title="Lossy JPEG at 75% quality, 150 DPI cap — best for screens">للشاشة</button>
+        <button class="tab-control__tab" data-preset="print" role="tab" aria-selected="false" title="Lossy JPEG at 92% quality, 300 DPI cap — best for print">للطباعة</button>
+        <button class="tab-control__tab" data-preset="supercompress" role="tab" aria-selected="false" title="Maximum compression — 50% quality, 72 DPI — smallest file size">أقصى ضغط</button>
       </div>
       <p class="tab-control__hint" id="preset-hint">No quality loss — recompress, deduplicate, clean up</p>
 
       <details class="advanced" open>
-        <summary class="advanced__toggle"><svg class="advanced__icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Advanced Settings</summary>
+        <summary class="advanced__toggle"><svg class="advanced__icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> إعدادات متقدمة</summary>
         <div class="advanced__body">
           <div class="control-row">
-            <label class="control-label">Mode</label>
+            <label class="control-label">الوضع</label>
             <div class="mode-toggle">
-              <button type="button" class="mode-btn mode-btn--active" data-mode="lossless">Lossless</button>
-              <button type="button" class="mode-btn" data-mode="lossy">Lossy</button>
+              <button type="button" class="mode-btn mode-btn--active" data-mode="lossless">بدون فقد</button>
+              <button type="button" class="mode-btn" data-mode="lossy">مع فقد</button>
             </div>
           </div>
 
           <div class="control-row control-row--quality" hidden>
-            <label class="control-label" for="quality-slider">Image quality</label>
+            <label class="control-label" for="quality-slider">جودة الصور</label>
             <div class="quality-control">
               <input type="range" id="quality-slider" class="quality-slider" min="1" max="100" value="85" />
               <span id="quality-value" class="quality-value">85</span>
@@ -143,7 +143,7 @@
           </div>
 
           <div class="control-row control-row--dpi" hidden>
-            <label class="control-label" for="max-dpi">Max image DPI</label>
+            <label class="control-label" for="max-dpi">أقصى دقة للصور</label>
             <div class="quality-control">
               <input type="number" id="max-dpi" class="dpi-input" min="72" max="600" step="1" value="150" />
             </div>
@@ -152,22 +152,22 @@
           <div class="control-row">
             <label class="control-label">
               <input type="checkbox" id="unembed-fonts" checked />
-              Unembed standard fonts
+              إلغاء تضمين الخطوط القياسية
             </label>
           </div>
 
           <div class="control-row">
             <label class="control-label">
               <input type="checkbox" id="subset-fonts" />
-              Subset embedded fonts
+              تقليص الخطوط المضمنة
             </label>
-            <p class="control-disclaimer" id="subset-fonts-disclaimer">Font subsetting is off by default while we monitor for edge cases. <a href="#" id="subset-fonts-learn-more">Learn more</a></p>
+            <p class="control-disclaimer" id="subset-fonts-disclaimer">تقليص الخطوط المضمنة متوقف افتراضيًا للحفاظ على التوافق.</p>
           </div>
         </div>
       </details>
 
       <div id="settings-actions" class="settings-actions" hidden>
-        <button id="btn-reoptimize" class="btn btn--default">Re-optimize</button>
+        <button id="btn-reoptimize" class="btn btn--default">إعادة التقليص</button>
       </div>
     </div>
   </div>
