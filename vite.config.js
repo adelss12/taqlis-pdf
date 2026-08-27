@@ -11,7 +11,7 @@ export default defineConfig({
     __BUILD_DATE__: JSON.stringify(buildDate),
     __APP_VERSION__: JSON.stringify(pkg.version),
   },
-  base: process.env.GITHUB_ACTIONS ? '/taqlis-pdf-engine/' : '/',
+  base: process.env.GITHUB_ACTIONS ? '/taqlis-pdf/' : '/',
   server: {
     open: true,
   },
