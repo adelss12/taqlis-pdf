@@ -10,11 +10,11 @@ export const PRESETS = {
 };
 
 const PRESET_HINTS = {
-  lossless:       'No quality loss \u2014 recompress, deduplicate, clean up',
-  web:            'Lossy JPEG at 75% quality, 150 DPI cap \u2014 best for screens',
-  print:          'Lossy JPEG at 92% quality, 300 DPI cap \u2014 best for print',
-  supercompress:  'Maximum compression \u2014 50% quality, 72 DPI \u2014 smallest file size',
-  custom:         'Custom settings',
+  lossless:       'دون فقدان الجودة — ضغط وتنظيف وإزالة التكرار',
+  web:            'ضغط مناسب للشاشات — جودة 75% ودقة 150 DPI',
+  print:          'ضغط مناسب للطباعة — جودة 92% ودقة 300 DPI',
+  supercompress:  'أقصى تقليص — جودة 50% ودقة 72 DPI',
+  custom:         'إعدادات مخصصة',
 };
 
 // --- DOM refs (private to this module) ---
@@ -79,10 +79,10 @@ export function syncPresetIndicator() {
 }
 
 const PRESET_LABELS = {
-  lossless: 'Lossless',
-  web: 'Web',
-  print: 'Print',
-  supercompress: 'Max Compress',
+  lossless: 'بدون فقد',
+  web: 'للشاشة',
+  print: 'للطباعة',
+  supercompress: 'أقصى ضغط',
 };
 
 /** Return the human-readable label for the currently active preset. */
@@ -97,7 +97,7 @@ export function getCurrentPresetLabel() {
       return PRESET_LABELS[name] || name.charAt(0).toUpperCase() + name.slice(1);
     }
   }
-  return 'Custom';
+  return 'مخصص';
 }
 
 export function collectOptions() {
