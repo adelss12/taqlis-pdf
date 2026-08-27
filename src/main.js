@@ -918,7 +918,7 @@ function showWarningDialog() {
           <input type="checkbox" id="warning-dismiss-check" />
           لا تعرض هذا التنبيه مرة أخرى
         </label>
-        <button class="btn btn--default" data-action="close">OK</button>
+        <button class="btn btn--default" data-action="close">تم</button>
       </div>
     </div>`;
 
