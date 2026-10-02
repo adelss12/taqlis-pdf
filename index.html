@@ -1,253 +1,177 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>تقليص PDF — ضغط ملفات PDF مجانًا</title>
-  <meta name="description" content="أداة عربية مجانية لتقليص حجم ملفات PDF مباشرة داخل المتصفح دون رفع الملفات إلى أي خادم.">
-  <meta property="og:title" content="تقليص PDF">
-  <meta property="og:description" content="قلّص حجم ملفات PDF بخصوصية تامة داخل متصفحك.">
-  <meta property="og:type" content="website">
-  <link rel="canonical" href="https://adelss12.github.io/taqlis-pdf/">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <!-- إعدادات تطبيق الآيفون -->
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="apple-mobile-web-app-title" content="PDF">
-  <link rel="stylesheet" href="css/style.css">
-  <meta property="og:url" content="https://adelss12.github.io/taqlis-pdf/">
-  <meta property="og:image" content="https://adelss12.github.io/taqlis-pdf/og-image.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="تقليص PDF">
-  <meta name="twitter:description" content="أداة عربية مجانية لتقليص حجم ملفات PDF داخل المتصفح.">
-  <meta name="twitter:image" content="https://adelss12.github.io/taqlis-pdf/og-image.png">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "تقليص PDF",
-    "description": "أداة عربية مجانية لتقليص حجم ملفات PDF داخل المتصفح دون رفع الملفات.",
-    "url": "https://adelss12.github.io/taqlis-pdf/",
-    "applicationCategory": "BrowserApplication",
-    "operatingSystem": "All",
-    "browserRequirements": "Requires JavaScript",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "creator": {
-      "@type": "Organization",
-      "name": "تقليص PDF",
-      "url": "https://adelss12.github.io/taqlis-pdf/"
-    }
-  }
-  </script>
-  <style>
-    body{font-family:Tahoma,Arial,sans-serif}.taqlis-nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;background:#fff;border-bottom:1px solid #eee}.taqlis-nav a{text-decoration:none;color:var(--text);font-size:1.15rem}.taqlis-nav strong{color:var(--accent)}.taqlis-nav span{color:var(--text-muted);font-size:.85rem}.tool-header h1,.options h3{font-family:Tahoma,Arial,sans-serif}.option-row select{text-align:right}.file-item{text-align:right}.taqlis-info{max-width:800px;margin:0 auto 2rem;padding:0 1.5rem}.taqlis-info article{background:#fff;border:1px solid var(--border-light);border-radius:var(--radius);padding:1.25rem;line-height:1.9;color:var(--text-muted)}.taqlis-info h2{color:var(--text);font-size:1.15rem;margin-bottom:.5rem}.taqlis-footer{text-align:center;padding:1.25rem;border-top:1px solid var(--border-light);color:var(--text-muted);font-size:.82rem}@media(max-width:600px){.taqlis-nav span{display:none}}
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تقليص PDF — ضغط متقدم وآمن</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <meta name="theme-color" content="#c0c0c8" />
+  <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body>
-  <header class="taqlis-nav"><a href="index.html">📄 <strong>تقليص <span dir="ltr">PDF</span></strong></a><span>ضغط آمن داخل جهازك</span></header>
-  <div class="tool-header">
-    <h1>📦 تقليص <span dir="ltr">PDF</span></h1>
-    <p>قلّص حجم ملف PDF مجانًا وبخصوصية تامة</p>
-    <div class="privacy-badge">🔒 ملفاتك لا تغادر جهازك</div>
+  <!-- Full-page drop overlay -->
+  <div id="drop-overlay" class="drop-overlay" hidden>
+    <div class="drop-overlay__content">
+      <svg class="drop-overlay__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="12" y1="18" x2="12" y2="12"/>
+        <polyline points="9 15 12 12 15 15"/>
+      </svg>
+      <p class="drop-overlay__text">أفلت الملف لبدء التقليص</p>
+    </div>
   </div>
 
-  <div class="tool-container">
-    <div class="drop-zone" id="dropZone">
-      <input type="file" accept=".pdf,application/pdf">
-      <div class="icon">📁</div>
-      <p>اسحب ملف PDF وأفلته هنا، أو <span class="browse">اختر ملفًا</span></p>
+  <div class="desktop">
+    <div class="app-window" id="main-window">
+      <div class="title-bar">
+        <div class="title-bar__ridges" aria-hidden="true"></div>
+        <span class="title-bar__title">تقليص PDF</span>
+        <div class="title-bar__ridges" aria-hidden="true"></div>
+        <div class="title-bar__widgets" aria-hidden="true">
+          <div class="title-bar__zoom-box"></div>
+          <div class="title-bar__collapse-box"></div>
+        </div>
+      </div>
+
+      <main id="app">
+        <!-- Drop zone (always visible) -->
+        <section id="drop-zone">
+          <div class="drop-area" tabindex="0" role="button" aria-label="اسحب ملفات PDF هنا أو اضغط للاختيار">
+            <div class="drop-area__content">
+              <svg class="drop-area__icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="12" y1="18" x2="12" y2="12"/>
+                <polyline points="9 15 12 12 15 15"/>
+              </svg>
+              <div class="drop-area__text-group">
+                <p class="drop-area__text">اسحب ملف PDF أو أكثر إلى هنا</p>
+                <p class="drop-area__subtext">أو اضغط لاختيار الملفات</p>
+              </div>
+            </div>
+            <input type="file" id="file-input" accept=".pdf,application/pdf" multiple hidden />
+          </div>
+        </section>
+
+        <!-- Processing state (shown below drop zone during optimization) -->
+        <section id="processing" class="state state--processing" hidden>
+          <h2>جارٍ تقليص الملفات&hellip;</h2>
+          <ul id="file-list" class="file-list"></ul>
+          <div class="processing-actions">
+            <button id="btn-cancel" class="btn-cancel">إلغاء</button>
+          </div>
+        </section>
+
+        <!-- Start over (shown after optimization completes) -->
+        <div id="main-actions" class="main-actions" hidden>
+          <button id="btn-start-over" class="btn btn--secondary">البدء من جديد</button>
+        </div>
+      </main>
+
+      <div class="status-bar">
+        <span class="status-bar__field status-bar__left" id="status-left">جاهز</span>
+        <span class="status-bar__field status-bar__right" id="status-right">
+          <a href="https://github.com/khawkins98/PDF-A-go-slim" target="_blank" rel="noopener">GitHub</a>
+          &middot;
+          <button type="button" class="about-link" id="btn-about">حول</button>
+          &middot;
+          <button type="button" class="debug-link" id="btn-debug">التفاصيل</button>
+        </span>
+      </div>
     </div>
 
-    <div id="pdfInfo" style="display:none">
-      <div class="file-list">
-        <div class="file-item" id="fileInfo"></div>
-      </div>
-
-      <div class="options">
-        <h3>مستوى التقليص</h3>
-        <div class="option-row">
-          <label for="compLevel">الوضع:</label>
-          <select id="compLevel">
-            <option value="light" selected>خفيف — تحسين بنية الملف دون فقدان الجودة</option>
-            <option value="medium">متوسط — ضغط الصور بدقة 150 DPI</option>
-            <option value="heavy">قوي — ضغط الصور بدقة 96 DPI</option>
-          </select>
-        </div>
-        <div class="option-row" style="font-size:.85rem;color:var(--text-muted)">
-          الوضع الخفيف يحافظ على النصوص والروابط وجودتها. الوضعان المتوسط والقوي يحولان الصفحات إلى صور مضغوطة لتقليل أكبر — <strong>لن تبقى النصوص والروابط وحقول النماذج قابلة للتحديد أو الاستخدام</strong>.
-        </div>
-      </div>
-
-      <div class="action-bar">
-        <button class="btn btn-primary" id="compressBtn">تقليص الملف</button>
-        <button class="btn btn-secondary" id="resetBtn">اختيار ملف آخر</button>
-      </div>
-
-      <div id="resultPanel" style="display:none">
-        <div class="file-list" style="margin-top:1rem">
-          <div class="file-item" id="resultInfo"></div>
-        </div>
-        <div class="action-bar">
-          <button class="btn btn-primary" id="downloadBtn">تنزيل الملف بعد التقليص</button>
-        </div>
-      </div>
+    <!-- Desktop icons -->
+    <div class="desktop-icons" id="desktop-icons">
+      <button class="desktop-icon" id="icon-readme" type="button">
+        <svg class="desktop-icon__img" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="8" y1="13" x2="16" y2="13"/>
+          <line x1="8" y1="17" x2="13" y2="17"/>
+          <line x1="8" y1="9" x2="11" y2="9"/>
+        </svg>
+        <span class="desktop-icon__label">تعليمات</span>
+      </button>
+      <a class="desktop-icon" id="icon-github"
+         href="https://github.com/khawkins98/PDF-A-go-slim"
+         target="_blank" rel="noopener">
+        <svg class="desktop-icon__img" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <span class="desktop-icon__label">GitHub</span>
+      </a>
+      <button class="desktop-icon" id="icon-appearance" type="button">
+        <svg class="desktop-icon__img" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        <span class="desktop-icon__label">المظهر</span>
+      </button>
     </div>
 
-    <div class="progress-bar" id="progress"><div class="fill"></div></div>
-    <div class="status-msg" id="status"></div>
+    <!-- Options panel (kept in HTML so options.js module-level querySelectorAll finds elements on import) -->
+    <div id="options-panel" class="options-panel" hidden>
+      <div class="tab-control" role="tablist">
+        <button class="tab-control__tab tab-control__tab--active" data-preset="lossless" role="tab" aria-selected="true" title="دون فقدان الجودة — ضغط وتنظيف وإزالة التكرار">بدون فقد</button>
+        <button class="tab-control__tab" data-preset="web" role="tab" aria-selected="false" title="Lossy JPEG at 75% quality, 150 DPI cap — best for screens">للشاشة</button>
+        <button class="tab-control__tab" data-preset="print" role="tab" aria-selected="false" title="Lossy JPEG at 92% quality, 300 DPI cap — best for print">للطباعة</button>
+        <button class="tab-control__tab" data-preset="supercompress" role="tab" aria-selected="false" title="Maximum compression — 50% quality, 72 DPI — smallest file size">أقصى ضغط</button>
+      </div>
+      <p class="tab-control__hint" id="preset-hint">دون فقدان الجودة — ضغط وتنظيف وإزالة التكرار</p>
+
+      <details class="advanced" open>
+        <summary class="advanced__toggle"><svg class="advanced__icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> إعدادات متقدمة</summary>
+        <div class="advanced__body">
+          <div class="control-row">
+            <label class="control-label">الوضع</label>
+            <div class="mode-toggle">
+              <button type="button" class="mode-btn mode-btn--active" data-mode="lossless">بدون فقد</button>
+              <button type="button" class="mode-btn" data-mode="lossy">مع فقد</button>
+            </div>
+          </div>
+
+          <div class="control-row control-row--quality" hidden>
+            <label class="control-label" for="quality-slider">جودة الصور</label>
+            <div class="quality-control">
+              <input type="range" id="quality-slider" class="quality-slider" min="1" max="100" value="85" />
+              <span id="quality-value" class="quality-value">85</span>
+            </div>
+          </div>
+
+          <div class="control-row control-row--dpi" hidden>
+            <label class="control-label" for="max-dpi">أقصى دقة للصور</label>
+            <div class="quality-control">
+              <input type="number" id="max-dpi" class="dpi-input" min="72" max="600" step="1" value="150" />
+            </div>
+          </div>
+
+          <div class="control-row">
+            <label class="control-label">
+              <input type="checkbox" id="unembed-fonts" checked />
+              إلغاء تضمين الخطوط القياسية
+            </label>
+          </div>
+
+          <div class="control-row">
+            <label class="control-label">
+              <input type="checkbox" id="subset-fonts" />
+              تقليص الخطوط المضمنة
+            </label>
+            <p class="control-disclaimer" id="subset-fonts-disclaimer">تقليص الخطوط المضمنة متوقف افتراضيًا للحفاظ على التوافق.</p>
+          </div>
+        </div>
+      </details>
+
+      <div id="settings-actions" class="settings-actions" hidden>
+        <button id="btn-reoptimize" class="btn btn--default">إعادة التقليص</button>
+      </div>
+    </div>
   </div>
 
-  <section class="taqlis-info"><article><h2>كيف يعمل تقليص PDF؟</h2><p>اختر ملف PDF ثم حدد مستوى التقليص المناسب. تتم المعالجة بالكامل داخل متصفحك ولا يُرفع الملف إلى الإنترنت.</p><p><strong>نصيحة:</strong> ابدأ بالوضع الخفيف للمحافظة على النصوص والروابط. استخدم المتوسط أو القوي للملفات المصورة عندما تحتاج حجمًا أصغر.</p></article></section>
-  <footer class="taqlis-footer">تقليص PDF — أداة مجانية ومفتوحة المصدر، مبنية على مشروع Parchment المرخّص بترخيص MIT.</footer>
-  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js" integrity="sha384-weMABwrltA6jWR8DDe9Jp5blk+tZQh7ugpCsF3JwSA53WZM9/14PjS5LAJNHNjAI" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" integrity="sha384-/1qUCSGwTur9vjf/z9lmu/eCUYbpOTgSjmpbMQZ1/CtX2v/WcAIKqRv+U1DUCG6e" crossorigin="anonymous"></script>
-  <script src="js/common.js"></script>
-  <script>showPostActionNudge = () => {}; showPostActionCTA = () => {};</script>
-  <script>
-
-
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-    let pdfData = null, pageCount = 0, resultBlob = null;
-    const pdfInfo = document.getElementById('pdfInfo');
-    const fileInfo = document.getElementById('fileInfo');
-    const resultPanel = document.getElementById('resultPanel');
-    const resultInfo = document.getElementById('resultInfo');
-    const compressBtn = document.getElementById('compressBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const status = document.getElementById('status');
-    const progress = document.getElementById('progress');
-    const dropZone = document.getElementById('dropZone');
-
-    let originalName = 'document.pdf', originalSize = 0;
-
-    function reset() {
-      pdfData = null; pageCount = 0; resultBlob = null;
-      pdfInfo.style.display = 'none';
-      resultPanel.style.display = 'none';
-      dropZone.style.display = '';
-      setStatus(status, '');
-    }
-
-    resetBtn.addEventListener('click', reset);
-
-    async function loadPDF(file) {
-      if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-        setStatus(status, 'يرجى اختيار ملف PDF صحيح', 'error'); return;
-      }
-      setStatus(status, 'جارٍ تحميل الملف…');
-      try {
-        pdfData = new Uint8Array(await file.arrayBuffer());
-        originalName = file.name;
-        originalSize = file.size;
-
-        const doc = await PDFLib.PDFDocument.load(pdfData, { ignoreEncryption: true });
-        pageCount = doc.getPageCount();
-
-        fileInfo.innerHTML = `<div class="file-info">
-          <div class="file-name">${file.name}</div>
-          <div class="file-meta"><span dir="ltr">${formatSize(file.size)}</span> · ${pageCount} صفحة</div>
-        </div>`;
-
-        dropZone.style.display = 'none';
-        pdfInfo.style.display = '';
-        resultPanel.style.display = 'none';
-        resultBlob = null;
-        setStatus(status, '');
-      } catch (err) {
-        setStatus(status, 'هذا الملف لا يبدو ملف PDF صالحًا', 'error');
-      }
-    }
-
-    compressBtn.addEventListener('click', async () => {
-      compressBtn.disabled = true;
-      resultPanel.style.display = 'none';
-      const level = document.getElementById('compLevel').value;
-
-      setStatus(status, 'جارٍ تقليص الملف…');
-      setProgress(progress, 5);
-
-      try {
-        let compressedBytes;
-
-        if (level === 'light') {
-          // Light: re-serialize with pdf-lib (strips unused objects, normalizes structure)
-          const doc = await PDFLib.PDFDocument.load(pdfData, { ignoreEncryption: true });
-          setProgress(progress, 50);
-          compressedBytes = await doc.save();
-        } else {
-          // Medium/Heavy: render pages as JPEG images and rebuild PDF
-          const dpi = level === 'medium' ? 150 : 96;
-          const scale = dpi / 72;
-          const jpegQuality = level === 'medium' ? 0.75 : 0.55;
-
-          const pdf = await pdfjsLib.getDocument({ data: pdfData.slice() }).promise;
-          const newDoc = await PDFLib.PDFDocument.create();
-
-          for (let i = 1; i <= pageCount; i++) {
-            const page = await pdf.getPage(i);
-            const origVp = page.getViewport({ scale: 1 });
-            const vp = page.getViewport({ scale });
-            const canvas = document.createElement('canvas');
-            canvas.width = vp.width; canvas.height = vp.height;
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            await page.render({ canvasContext: ctx, viewport: vp }).promise;
-
-            const jpegBlob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', jpegQuality));
-            const jpegBytes = new Uint8Array(await jpegBlob.arrayBuffer());
-            const img = await newDoc.embedJpg(jpegBytes);
-
-            // Keep original page dimensions (in points)
-            const newPage = newDoc.addPage([origVp.width, origVp.height]);
-            newPage.drawImage(img, { x: 0, y: 0, width: origVp.width, height: origVp.height });
-
-            setProgress(progress, 5 + (85 * i / pageCount));
-          }
-
-          compressedBytes = await newDoc.save();
-        }
-
-        resultBlob = new Blob([compressedBytes], { type: 'application/pdf' });
-        const newSize = compressedBytes.length;
-        const reduction = ((1 - newSize / originalSize) * 100).toFixed(1);
-        const icon = newSize < originalSize ? '✅' : '⚠️';
-        const msg = newSize < originalSize
-          ? `تم تقليل الحجم بنسبة ${reduction}%`
-          : 'الملف محسّن مسبقًا، ولم ينتج عن المعالجة حجم أصغر';
-
-        resultInfo.innerHTML = `<div class="file-info">
-          <div class="file-name">${icon} <span dir="ltr">${formatSize(originalSize)} → ${formatSize(newSize)}</span></div>
-          <div class="file-meta">${msg}</div>
-        </div>`;
-
-        resultPanel.style.display = '';
-        setProgress(progress, 100);
-        setStatus(status, newSize < originalSize ? 'اكتمل تقليص الملف بنجاح' : 'لم يتم إنشاء ملف للتنزيل لأن الحجم الناتج ليس أصغر', newSize < originalSize ? 'success' : 'error');
-        downloadBtn.disabled = newSize >= originalSize;
-      } catch (err) {
-        setStatus(status, 'حدث خطأ أثناء معالجة الملف: ' + err.message, 'error');
-      }
-      setProgress(progress, 0);
-      compressBtn.disabled = false;
-    });
-
-    downloadBtn.addEventListener('click', () => {
-      if (resultBlob) {
-        const name = originalName.replace(/\.pdf$/i, '') + '-compressed.pdf';
-        downloadBlob(resultBlob, name);
-      }
-    });
-
-    setupDropZone(dropZone, {
-      accept: f => f.type === 'application/pdf' || f.name.toLowerCase().endsWith('.pdf'),
-      onFiles: fs => loadPDF(fs[0])
-    });
-  </script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>
