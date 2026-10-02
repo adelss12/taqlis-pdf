@@ -1,4 +1,4 @@
-<p align="center"><img src="public/favicon.svg" width="80" height="80" alt="PDF-A-go-slim icon"></p>
+<p align="center"><img src="public/apple-touch-icon.png" width="80" height="80" alt="تقليص PDF"></p>
 
 # PDF-A-go-slim
 
