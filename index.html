@@ -2,178 +2,64 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تقليص PDF — ضغط متقدم وآمن</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#B4232C" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="PDF" />
+  <meta name="description" content="تقليص ودمج وتنظيم ملفات PDF وتحويل الصور إلى PDF داخل متصفحك دون رفع الملفات." />
+  <title>تقليص PDF</title>
   <link rel="icon" type="image/png" href="/apple-touch-icon.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <meta name="apple-mobile-web-app-title" content="PDF" />
-  <meta name="theme-color" content="#c0c0c8" />
-  <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body>
-  <!-- Full-page drop overlay -->
-  <div id="drop-overlay" class="drop-overlay" hidden>
-    <div class="drop-overlay__content">
-      <svg class="drop-overlay__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="12" y1="18" x2="12" y2="12"/>
-        <polyline points="9 15 12 12 15 15"/>
-      </svg>
-      <p class="drop-overlay__text">أفلت الملف لبدء التقليص</p>
-    </div>
+  <div class="wrap">
+    <header class="top">
+      <img src="/apple-touch-icon.png" alt="" class="logo" />
+      <div>
+        <h1>تقليص PDF</h1>
+        <p>كل المعالجة على جهازك، ولا تُرفع ملفاتك إلى أي مكان</p>
+      </div>
+    </header>
+
+    <nav class="tools" id="tools" aria-label="الأدوات">
+      <button type="button" class="tool on" data-tool="compress"><svg class="ico"><use href="#i-compress"/></svg><span>تقليص الحجم</span></button>
+      <button type="button" class="tool" data-tool="merge"><svg class="ico"><use href="#i-merge"/></svg><span>دمج ملفات</span></button>
+      <button type="button" class="tool" data-tool="pages"><svg class="ico"><use href="#i-pages"/></svg><span>تنظيم الصفحات</span></button>
+      <button type="button" class="tool" data-tool="images"><svg class="ico"><use href="#i-image"/></svg><span>صور إلى PDF</span></button>
+    </nav>
+
+    <main id="view"></main>
+
+    <footer>
+      <a href="classic.html">الواجهة الكلاسيكية مع الإعدادات المتقدمة</a>
+    </footer>
   </div>
 
-  <div class="desktop">
-    <div class="app-window" id="main-window">
-      <div class="title-bar">
-        <div class="title-bar__ridges" aria-hidden="true"></div>
-        <span class="title-bar__title">تقليص PDF</span>
-        <div class="title-bar__ridges" aria-hidden="true"></div>
-        <div class="title-bar__widgets" aria-hidden="true">
-          <div class="title-bar__zoom-box"></div>
-          <div class="title-bar__collapse-box"></div>
-        </div>
-      </div>
+  <div class="drop-hint" id="dropHint" hidden><div><svg class="ico"><use href="#i-upload"/></svg><p>أفلت الملفات هنا</p></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-      <main id="app">
-        <!-- Drop zone (always visible) -->
-        <section id="drop-zone">
-          <div class="drop-area" tabindex="0" role="button" aria-label="اسحب ملفات PDF هنا أو اضغط للاختيار">
-            <div class="drop-area__content">
-              <svg class="drop-area__icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-                <line x1="12" y1="18" x2="12" y2="12"/>
-                <polyline points="9 15 12 12 15 15"/>
-              </svg>
-              <div class="drop-area__text-group">
-                <p class="drop-area__text">اسحب ملف PDF أو أكثر إلى هنا</p>
-                <p class="drop-area__subtext">أو اضغط لاختيار الملفات</p>
-              </div>
-            </div>
-            <input type="file" id="file-input" accept=".pdf,application/pdf" multiple hidden />
-          </div>
-        </section>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <symbol id="i-compress" viewBox="0 0 24 24"><path d="M7 3.5h7l4 4V20.5H7z"/><path d="M14 3.5V8h4M12.5 10v3M12.5 13l-2-2M12.5 13l2-2M12.5 17.5v-3M12.5 14.5l-2 2M12.5 14.5l2 2"/></symbol>
+    <symbol id="i-merge" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="9" height="11" rx="1.5"/><rect x="11.5" y="9.5" width="9" height="11" rx="1.5"/></symbol>
+    <symbol id="i-pages" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="m4 18 5-5 4 4 2.5-2.5L20 19"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 19.5h14"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V3.5M8 7.5l4-4 4 4"/><path d="M6 11H5v9.5h14V11h-1"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6.5 3.5h8L19 8v12.5H6.5z"/><path d="M14 3.5V8h5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4v4.5H15"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M10 7V4.5h4V7M6.5 7l1 13h9l1-13"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="m14.5 6-6 6 6 6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="m9.5 6 6 6-6 6"/></symbol>
+  </defs></svg>
 
-        <!-- Processing state (shown below drop zone during optimization) -->
-        <section id="processing" class="state state--processing" hidden>
-          <h2>جارٍ تقليص الملفات&hellip;</h2>
-          <ul id="file-list" class="file-list"></ul>
-          <div class="processing-actions">
-            <button id="btn-cancel" class="btn-cancel">إلغاء</button>
-          </div>
-        </section>
-
-        <!-- Start over (shown after optimization completes) -->
-        <div id="main-actions" class="main-actions" hidden>
-          <button id="btn-start-over" class="btn btn--secondary">البدء من جديد</button>
-        </div>
-      </main>
-
-      <div class="status-bar">
-        <span class="status-bar__field status-bar__left" id="status-left">جاهز</span>
-        <span class="status-bar__field status-bar__right" id="status-right">
-          <a href="https://github.com/khawkins98/PDF-A-go-slim" target="_blank" rel="noopener">GitHub</a>
-          &middot;
-          <button type="button" class="about-link" id="btn-about">حول</button>
-          &middot;
-          <button type="button" class="debug-link" id="btn-debug">التفاصيل</button>
-        </span>
-      </div>
-    </div>
-
-    <!-- Desktop icons -->
-    <div class="desktop-icons" id="desktop-icons">
-      <button class="desktop-icon" id="icon-readme" type="button">
-        <svg class="desktop-icon__img" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="8" y1="13" x2="16" y2="13"/>
-          <line x1="8" y1="17" x2="13" y2="17"/>
-          <line x1="8" y1="9" x2="11" y2="9"/>
-        </svg>
-        <span class="desktop-icon__label">تعليمات</span>
-      </button>
-      <a class="desktop-icon" id="icon-github"
-         href="https://github.com/khawkins98/PDF-A-go-slim"
-         target="_blank" rel="noopener">
-        <svg class="desktop-icon__img" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="2" y1="12" x2="22" y2="12"/>
-          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-        </svg>
-        <span class="desktop-icon__label">GitHub</span>
-      </a>
-      <button class="desktop-icon" id="icon-appearance" type="button">
-        <svg class="desktop-icon__img" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-        </svg>
-        <span class="desktop-icon__label">المظهر</span>
-      </button>
-    </div>
-
-    <!-- Options panel (kept in HTML so options.js module-level querySelectorAll finds elements on import) -->
-    <div id="options-panel" class="options-panel" hidden>
-      <div class="tab-control" role="tablist">
-        <button class="tab-control__tab tab-control__tab--active" data-preset="lossless" role="tab" aria-selected="true" title="دون فقدان الجودة — ضغط وتنظيف وإزالة التكرار">بدون فقد</button>
-        <button class="tab-control__tab" data-preset="web" role="tab" aria-selected="false" title="Lossy JPEG at 75% quality, 150 DPI cap — best for screens">للشاشة</button>
-        <button class="tab-control__tab" data-preset="print" role="tab" aria-selected="false" title="Lossy JPEG at 92% quality, 300 DPI cap — best for print">للطباعة</button>
-        <button class="tab-control__tab" data-preset="supercompress" role="tab" aria-selected="false" title="Maximum compression — 50% quality, 72 DPI — smallest file size">أقصى ضغط</button>
-      </div>
-      <p class="tab-control__hint" id="preset-hint">دون فقدان الجودة — ضغط وتنظيف وإزالة التكرار</p>
-
-      <details class="advanced" open>
-        <summary class="advanced__toggle"><svg class="advanced__icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> إعدادات متقدمة</summary>
-        <div class="advanced__body">
-          <div class="control-row">
-            <label class="control-label">الوضع</label>
-            <div class="mode-toggle">
-              <button type="button" class="mode-btn mode-btn--active" data-mode="lossless">بدون فقد</button>
-              <button type="button" class="mode-btn" data-mode="lossy">مع فقد</button>
-            </div>
-          </div>
-
-          <div class="control-row control-row--quality" hidden>
-            <label class="control-label" for="quality-slider">جودة الصور</label>
-            <div class="quality-control">
-              <input type="range" id="quality-slider" class="quality-slider" min="1" max="100" value="85" />
-              <span id="quality-value" class="quality-value">85</span>
-            </div>
-          </div>
-
-          <div class="control-row control-row--dpi" hidden>
-            <label class="control-label" for="max-dpi">أقصى دقة للصور</label>
-            <div class="quality-control">
-              <input type="number" id="max-dpi" class="dpi-input" min="72" max="600" step="1" value="150" />
-            </div>
-          </div>
-
-          <div class="control-row">
-            <label class="control-label">
-              <input type="checkbox" id="unembed-fonts" checked />
-              إلغاء تضمين الخطوط القياسية
-            </label>
-          </div>
-
-          <div class="control-row">
-            <label class="control-label">
-              <input type="checkbox" id="subset-fonts" />
-              تقليص الخطوط المضمنة
-            </label>
-            <p class="control-disclaimer" id="subset-fonts-disclaimer">تقليص الخطوط المضمنة متوقف افتراضيًا للحفاظ على التوافق.</p>
-          </div>
-        </div>
-      </details>
-
-      <div id="settings-actions" class="settings-actions" hidden>
-        <button id="btn-reoptimize" class="btn btn--default">إعادة التقليص</button>
-      </div>
-    </div>
-  </div>
-
-  <script type="module" src="/src/main.js"></script>
-<script src="https://adelss12.github.io/back.js" defer></script>
+  <script type="module" src="/src/app/main.js"></script>
+  <script src="https://adelss12.github.io/back.js" defer></script>
 </body>
 </html>

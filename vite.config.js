@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import { readFileSync } from 'fs';
+import { resolve } from 'path';
 
 const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'));
 const now = new Date();
@@ -17,6 +18,12 @@ export default defineConfig({
   },
   build: {
     target: 'es2020',
+    rollupOptions: {
+      input: {
+        main: resolve(process.cwd(), 'index.html'),
+        classic: resolve(process.cwd(), 'classic.html'),
+      },
+    },
   },
   worker: {
     format: 'es',
@@ -32,8 +39,8 @@ export default defineConfig({
         name: 'تقليص PDF',
         short_name: 'تقليص PDF',
         description: 'تقليص ملفات PDF داخل المتصفح دون رفع الملفات.',
-        theme_color: '#c0c0c8',
-        background_color: '#c0c0c8',
+        theme_color: '#B4232C',
+        background_color: '#F6F4F2',
         display: 'standalone',
         icons: [
           {
